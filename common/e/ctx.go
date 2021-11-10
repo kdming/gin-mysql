@@ -23,6 +23,9 @@ func Ok(c *gin.Context, msg string, data interface{}) {
 	c.JSON(200, res)
 }
 
-func NewError(msg string) error {
-	return errors.New(msg)
+func NewError(msg string, err error) error {
+	if err == nil {
+		return errors.New(msg)
+	}
+	return errors.New(msg + ":" + err.Error())
 }

@@ -11,7 +11,7 @@ import (
 func Cors(g *gin.Engine) {
 	g.Use(cors.New(cors.Options{
 		AllowedOrigins:     []string{"*"},
-		AllowedMethods:     []string{"GET", "OPTIONS", "POST", "DELETE"},
+		AllowedMethods:     []string{"GET", "OPTIONS", "PUT", "POST", "DELETE"},
 		AllowedHeaders:     []string{"*"},
 		AllowCredentials:   true,
 		OptionsPassthrough: false,

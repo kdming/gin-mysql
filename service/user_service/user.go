@@ -21,7 +21,7 @@ func (*UserSvc) Register(user *models.User) error {
 		return err
 	}
 	if user.ID != 0 {
-		return e.NewError("用户已注册！")
+		return e.NewError("用户已注册！", nil)
 	}
 	return mysql.Insert("users", user)
 }
