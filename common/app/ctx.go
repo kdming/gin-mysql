@@ -1,4 +1,4 @@
-package e
+package app
 
 import (
 	"errors"
@@ -8,9 +8,16 @@ import (
 type M map[string]interface{}
 type I []interface{}
 
-func Err(msg string, err error) {
-	if err != nil {
-		msg += ":" + err.Error()
+func Err(errs ...interface{}) {
+	msg := ""
+	for i := 0; i < len(errs); i++ {
+		err := errs[i]
+		switch err.(type) {
+		case string:
+			msg += err.(string) + ","
+		case error:
+			msg += err.(error).Error()
+		}
 	}
 	panic(msg)
 }
