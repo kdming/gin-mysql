@@ -2,6 +2,7 @@ package app
 
 import (
 	"errors"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -30,9 +31,21 @@ func Ok(c *gin.Context, msg string, data interface{}) {
 	c.JSON(200, res)
 }
 
-func NewError(msg string, err error) error {
-	if err == nil {
-		return errors.New(msg)
+func NewError(params ...interface{}) error {
+	errStr := ""
+	for i := 0; i < len(params); i++ {
+		p := params[i]
+		switch p.(type) {
+		case string:
+			errStr += p.(string)
+		case error:
+			if errStr != "" {
+				errStr += ":"
+			}
+			errStr += p.(error).Error()
+		default:
+			errStr += "发生错误!"
+		}
 	}
-	return errors.New(msg + ":" + err.Error())
+	return errors.New(errStr)
 }
